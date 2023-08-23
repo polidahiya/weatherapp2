@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <title>Temp website</title>
+    <style>
+      body {
+        height: 100dvh;
+        width: 100vw;
+        background-color: rgb(73, 80, 95);
+        color: aliceblue;
+        overflow: hidden;
+        font-family: "Sacramento", cursive;
+        user-select: none;
+      }
+      .weather {
+        height: 90dvh;
+        aspect-ratio: 9/16;
+        background: linear-gradient(135deg, rgb(56, 63, 76), rgb(22, 26, 36));
+        border-radius: 2.8dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .shadow {
+        box-shadow: 4px 3px 7px 0px rgb(0, 0, 0),
+          -2px -2px 5px 0px rgb(49, 49, 49);
+      }
+      .appname {
+        height: 11dvh;
+        width: 100%;
+        color: aliceblue;
+        font-size: 6dvh;
+      }
+      .circle {
+        aspect-ratio: 1;
+        border-radius: 50%;
+      }
+      .circle4 {
+        height: 40%;
+        background: linear-gradient(135deg, rgb(56, 63, 76), rgb(22, 26, 36));
+        position: relative;
+      }
+      .tempsvg{
+        position: absolute;
+        transform: rotateZ(-90deg) rotateX(0deg);
+      }
+      .tempsvg circle{
+        stroke-dasharray: 588 ;
+        stroke-dashoffset:58;
+        stroke-linecap: round;
+      }
+      .isday {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(-15px);
+      }
+      .changeunit,
+      .search {
+        height: 5dvh;
+        width: 5dvh;
+        background: linear-gradient(135deg, rgb(56, 63, 76), rgb(22, 26, 36));
+        cursor: pointer;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transform: translateX(15px);
+      }
+      .search {
+        top: 0;
+        transition: 0.4s;
+        z-index: 100;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .searchback {
+        height: 100%;
+        aspect-ratio: 1;
+        justify-content: center;
+        align-items: center;
+        display: none;
+        position: absolute;
+        left: 5px;
+        top: 0.5%;
+      }
+      .search input {
+        font-size: 2.5dvh;
+        outline: none;
+        color: white;
+        background-color: transparent;
+        width: 0;
+        height: 0;
+        border: none;
+        text-indent: 10%;
+      }
+      .search span {
+        height: 100%;
+        aspect-ratio: 1;
+        opacity: 1;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .circle3 {
+        height: 90%;
+        background: rgb(40, 45, 54);
+        box-shadow: 0px 0px 6px 2px black;
+        z-index: 10;
+      }
+      .circle2 {
+        height: 90%;
+        background: linear-gradient(-45deg, rgb(56, 63, 76), rgb(22, 26, 36));
+        box-shadow: 0px 0px 6px 0px rgb(89, 89, 89);
+      }
+      .circle1 {
+        height: 90%;
+        background: linear-gradient(135deg, rgb(56, 63, 76), rgb(22, 26, 36));
+        position: relative;
+      }
+      .icon {
+        height: 40%;
+        aspect-ratio: 1;
+        transform: translateY(-55%);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .temptext {
+        bottom: 20%;
+        position: absolute;
+        text-transform: capitalize;
+        text-align: center;
+      }
+      .temptext span {
+        color: rgb(255, 255, 255);
+        font-weight: 900;
+      }
+      /*  */
+      .container {
+        height: 12%;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+      .smallcont {
+        height: 100%;
+        aspect-ratio: 4.8/3;
+        background-color: rgb(29, 33, 44);
+        border-radius: 12%;
+        text-align: center;
+      }
+      .t {
+        background-color: transparent;
+      }
+    </style>
+  </head>
+  <body class="center">
+    <div class="weather shadow">
+      <div class="appname center">Temperature</div>
+      <div class="circle4 circle shadow center">
+        <svg class="tempsvg" width="100%" height="100%">
+          <circle cx="50%" cy="50%" r="47.4%" stroke="green" stroke-width="11" fill="transparent" />
+        </svg>
+        <div class="isday">Day</div>
+        <div class="search center shadow">
+          <div class="searchback center" onclick="handlesearch(false)">
+            &rarr;
+          </div>
+          <input type="text" name="" id="" />
+          <span class="center" onclick="handlesearch(true)">Q</span>
+        </div>
+        <div class="changeunit center shadow" onclick="changeunit()">C</div>
+        <div class="circle3 circle center">
+          <div class="circle2 circle center">
+            <div class="circle1 circle center">
+              <div class="icon"></div>
+              <div class="temptext"><span>25°C</span><span>/</span>sunny</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="smallcont name center t">Delhi</div>
+        <div class="smallcont country center t">India</div>
+        <div class="smallcont time center t">Time</div>
+      </div>
+      <div class="container">
+        <div class="smallcont pressure shadow center">200</div>
+        <div class="smallcont humidity shadow center">60</div>
+        <div class="smallcont feelslike shadow center">40</div>
+      </div>
+      <div class="container">
+        <div class="smallcont winddegree shadow center">30deg</div>
+        <div class="smallcont winddirection shadow center">SE</div>
+        <div class="smallcont windspeed shadow center">5.6</div>
+      </div>
+    </div>
+    <script>
+      function select1(item) {
+        return document.querySelector(item);
+      }
+      //
+      let searchvalue="new delhi"
+      let celcius = true;
+      // changeunit
+      function changeunit() {
+        celcius = !celcius;
+        if (celcius) {
+          select1(".changeunit").innerHTML = "C";
+        } else {
+          select1(".changeunit").innerHTML = "F";
+        }
+        fetchapi(searchvalue);
+      }
+      // fetch api
+      fetchapi("new delhi")
+      function fetchapi(value) {
+        fetch(
+          `http://api.weatherapi.com/v1/current.json?key=3dcf5aa0d22740bfb9b145415231708&q=${value}&aqi=yes`
+        )
+          .then((response) => response.json())
+          .then((res) => {
+            select1(".icon").style.backgroundImage =
+              "url(" + res.current.condition.icon + ")";
+            select1(".temptext").innerHTML =
+              "<span>" +
+              (celcius
+                ? res.current.temp_c + "° C"
+                : res.current.temp_f + "° F") +
+              "</span><br>" +
+              res.current.condition.text +
+              "";
+            select1(".name").innerHTML =
+              res.location.name + "<span style='color: aqua;'>Location</span>";
+            select1(".time").innerHTML = res.location.localtime;
+            select1(".country").innerHTML =
+              res.location.country +
+              "<span style='color: aqua;'>Country</span>";
+            select1(".pressure").innerHTML =
+              res.current.pressure_in +
+              "<span style='color: aqua;'>Pressure</span>";
+            select1(".humidity").innerHTML =
+              res.current.humidity +
+              "<span style='color: aqua;'>Humidity</span>";
+            select1(".feelslike").innerHTML = celcius
+              ? res.current.feelslike_c +
+                "° C" +
+                "<span style='color: aqua;'>Feels_Like</span>"
+              : res.current.feelslike_f +
+                "° F" +
+                "<span style='color: aqua;'>Feels_Like</span>";
+            select1(".winddegree").innerHTML =
+              res.current.wind_degree +
+              " °" +
+              "<span style='color: aqua;'>W_Degree</span>";
+            select1(".winddirection").innerHTML =
+              "' " +
+              res.current.wind_dir +
+              " '" +
+              "<span style='color: aqua;'>W_Dir</span>";
+            select1(".windspeed").innerHTML =
+              res.current.wind_kph +
+              " kph" +
+              "<span style='color: aqua;'>W_Speed</span>";
+            select1(".isday").innerHTML =
+              res.current.is_day == 0 ? "Night" : "Day";
+            //
+            // change color
+            if (res.current.temp_c >= 20) {
+              select1(".temptext span").style.color =
+                "hsl(" +
+                (120 - ((res.current.temp_c - 20) * 120) / 40) +
+                ", 100%, 50%)";
+                // 
+                select1(".tempsvg circle").style.stroke =
+                "hsl(" +
+                (120 - ((res.current.temp_c - 20) * 120) / 40) +
+                ", 100%, 50%)";
+            } else if (res.current.temp_c < 20 && res.current.temp_c >= 0) {
+              select1(".temptext span").style.color =
+                "hsl(130, 100%, " +
+                (100 - (res.current.temp_c * 50) / 19) +
+                "%)";
+                // 
+                select1(".tempsvg circle").style.stroke =
+                "hsl(130, 100%, " +
+                (100 - (res.current.temp_c * 50) / 19) +
+                "%)";
+            } else if (res.current.temp_c < 0) {
+              select1(".temptext span").style.color =
+                "hsl(209, 100%, " +
+                (100 - (-res.current.temp_c * 50) / 70) +
+                "%)";
+                // 
+                select1(".tempsvg circle").style.stroke =
+                "hsl(209, 100%, " +
+                (100 - (-res.current.temp_c * 50) / 70) +
+                "%)";
+            }
+            // circle size
+            select1(".tempsvg circle").style.strokeDashoffset=588-((res.current.temp_c+70)*588/130)
+          }).catch(error=>{
+            alert("No matching location found")
+          })
+      }
+      //
+      let searchflag = true;
+      function handlesearch(value) {
+        if (value) {
+          if (searchflag) {
+            select1(".search").style = " width: 42dvh;border-radius: 5dvh;";
+            select1(".search input").style = "height: 100%;width: auto;";
+            setTimeout(() => {
+              select1(".search input").focus();
+              select1(".searchback").style = "display:flex";
+            }, 600);
+            searchflag = false;
+          } else {
+            fetchapi(select1(".search input").value);
+            if(select1(".search input").value!=""){
+              searchvalue=select1(".search input").value
+            }
+            select1(".search input").value = "";
+            handlesearch(false);
+            searchflag = true;
+          }
+        } else {
+          select1(".search").style = " width: 5dvh;border-radius: 5dvh;";
+          select1(".search input").style = "height: 0;width: 0;";
+          select1(".searchback").style = "display:none";
+          select1(".search input").blur()
+          searchflag = true;
+        }
+      }
+      // enter to search
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          handlesearch(false)
+        }
+        if (e.key === "q" && searchflag==true) {
+          handlesearch(true)
+        }
+        if (e.key == "Enter" && searchflag == false) {
+          handlesearch(true)
+        }
+      });
+    </script>
+  </body>
+</html>
